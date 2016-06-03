@@ -28,8 +28,6 @@
 
 <?php
 
-require "../credentials.php";
-
   /*
   The following function will strip the script name from URL i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
   */
@@ -49,7 +47,7 @@ require "../credentials.php";
   $screen_name = $routes[1];
 
 
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', DB_PASSWORD);
+$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"]);
 
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

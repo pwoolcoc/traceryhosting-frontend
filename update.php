@@ -1,19 +1,15 @@
 <?php
 
-
 header('Content-Type: application/json');
 
 require "twitteroauth/autoload.php";
-require "credentials.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
+$connection = new TwitterOAuth($_ENV["TWITTER_CONSUMER_KEY"], $_ENV["TWITTER_CONSUMER_SECRET"]);
 
 
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-
-
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', DB_PASSWORD, array(
+$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"], array(
     PDO::MYSQL_ATTR_FOUND_ROWS => true
 ));
 
@@ -36,7 +32,7 @@ if (isset($_SESSION['oauth_token']))
 
 	  	if ($stmt->rowCount() == 1)
 	  	{
-	  		mail("vtwentyone+php@gmail.com", "Bot update : " . $_SESSION['screen_name'] . " every " . $_POST['frequency'] . " minutes", $_POST['tracery']);
+	  		//mail("vtwentyone+php@gmail.com", "Bot update : " . $_SESSION['screen_name'] . " every " . $_POST['frequency'] . " minutes", $_POST['tracery']);
 			die ("{\"success\": true}");
 	  	}
 	  	else

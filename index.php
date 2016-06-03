@@ -1,17 +1,12 @@
 <?php
 
-
 require "twitteroauth/autoload.php";
-require "credentials.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
+$connection = new TwitterOAuth($_ENV["TWITTER_CONSUMER_KEY"], $_ENV["TWITTER_CONSUMER_SECRET"]);
 
-
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-
-
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', DB_PASSWORD);
+$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"]);
 
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

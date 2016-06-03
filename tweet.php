@@ -1,17 +1,10 @@
 <?php
 
-
-//header('Content-Type: application/json');
-
 require "twitteroauth/autoload.php";
-require "credentials.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-
-
-
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', DB_PASSWORD, array(
+$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"], array(
     PDO::MYSQL_ATTR_FOUND_ROWS => true
 ));
 
@@ -55,8 +48,8 @@ if (isset($_SESSION['oauth_token']))
 		);
 
 		$cwd = '/tmp';
-		$env = array('TWITTER_CONSUMER_KEY' => CONSUMER_KEY,
-					 'TWITTER_CONSUMER_SECRET' => CONSUMER_SECRET,
+		$env = array('TWITTER_CONSUMER_KEY' => $_ENV["TWITTER_CONSUMER_KEY"],
+					 'TWITTER_CONSUMER_SECRET' => $_ENV["TWITTER_CONSUMER_SECRET"],
 					 'ACCESS_TOKEN' => $result['token'],
 					 'ACCESS_TOKEN_SECRET' =>  $result['token_secret']);
 

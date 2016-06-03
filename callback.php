@@ -1,14 +1,13 @@
 <?php
 
 require "twitteroauth/autoload.php";
-require "credentials.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+$connection = new TwitterOAuth($_ENV["TWITTER_CONSUMER_KEY"], $_ENV["TWITTER_CONSUMER_SECRET"]);
 
 
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', DB_PASSWORD);
+$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"]);
 
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -47,7 +46,7 @@ if ((isset($_REQUEST['oauth_token']) && $request_token['oauth_token'] !== $_REQU
 
     login_failure();
 }
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $request_token['oauth_token'], $request_token['oauth_token_secret']);
+$connection = new TwitterOAuth($_ENV["TWITTER_CONSUMER_KEY"], $_ENV["TWITTER_CONSUMER_SECRET"], $request_token['oauth_token'], $request_token['oauth_token_secret']);
 $access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
 
 if (!(isset($access_token["oauth_token"])) || !(isset($access_token["oauth_token_secret"])))
@@ -81,7 +80,7 @@ if (!(isset($access_token["oauth_token"])) || !(isset($access_token["oauth_token
 
 $_SESSION['oauth_token'] = $access_token["oauth_token"]; //this should be this already?
 
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+$connection = new TwitterOAuth($_ENV["TWITTER_CONSUMER_KEY"], $_ENV["TWITTER_CONSUMER_SECRET"], $access_token['oauth_token'], $access_token['oauth_token_secret']);
 $user_data = $connection->get("users/show", array("screen_name" => $access_token["screen_name"]));
 
 $_SESSION['profile_pic'] = $user_data->profile_image_url; 
