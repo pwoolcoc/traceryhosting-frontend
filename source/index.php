@@ -47,7 +47,7 @@
   $screen_name = $routes[1];
 
 
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"]);
+$pdo = new PDO("mysql:dbname=" . $_ENV["MYSQL_DB_NAME"] . ";host=" . $_ENV["MYSQL_HOST"] . ";port=" . $_ENV["MYSQL_PORT"] . ";charset=utf8mb4", $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASS"]);
 
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

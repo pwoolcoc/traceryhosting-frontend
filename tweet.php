@@ -4,7 +4,7 @@ require "twitteroauth/autoload.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-$pdo = new PDO('mysql:dbname=traceryhosting;host=127.0.0.1;charset=utf8mb4', 'tracery_php', $_ENV["DB_PASSWORD"], array(
+$pdo = new PDO("mysql:dbname=" . $_ENV["MYSQL_DB_NAME"] . ";host=" . $_ENV["MYSQL_HOST"] . ";port=" . $_ENV["MYSQL_PORT"] . ";charset=utf8mb4", $_ENV["MYSQL_USER"], $_ENV["MYSQL_PASS"], array(
     PDO::MYSQL_ATTR_FOUND_ROWS => true
 ));
 
